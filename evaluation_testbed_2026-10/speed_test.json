@@ -1,0 +1,12 @@
+{
+  "object_MiB": 10,
+  "raw_udp_channel_MBps": 81.4,
+  "raw_udp_channel_Mbps": 651,
+  "rail_full_MBps": 0.201,
+  "rail_full_pipeline_s": 49.76,
+  "S2_inspect_s": 39.67,
+  "S4_fec_s": 10.07,
+  "S3_integrity_ms": 18.6,
+  "S3_pct": 0.037,
+  "rail_noML_MBps": 0.579
+}

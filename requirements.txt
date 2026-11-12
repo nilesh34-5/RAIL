@@ -1,0 +1,31 @@
+# RAIL - Risk-Adaptive Integrity Layering  (Python 3.11+)
+#
+# Core (required) -----------------------------------------------------------
+cryptography>=42.0      # SHA-256, Ed25519 signatures
+PyYAML>=6.0             # configuration files
+numpy>=1.24             # feature vectors / histograms
+scikit-learn>=1.3       # IsolationForest anomaly detector
+
+# Deep packet inspection - offline ML (recommended) -------------------------
+lightgbm>=4.0           # EMBER gradient-boosted malware model
+lief>=0.14              # PE parsing for EMBER2018 feature extraction
+yara-python>=4.3        # signature matching (offline YARA rules)
+python-magic-bin>=0.4;  platform_system=="Windows"   # libmagic file typing
+python-magic>=0.4;      platform_system!="Windows"
+
+# EMBER2024 pretrained classifier (offline ML DPI) --------------------------
+#   pip install git+https://github.com/FutureComputing4AI/EMBER2024.git
+#   the following pins are required for the extractor to import on Python 3.13:
+signify==0.5.2          # thrember imports SignedPEFile from signify.authenticode
+# huggingface_hub is pulled in by thrember and used to fetch the model file
+
+# Forward error correction (one-way reliable delivery) ----------------------
+# RaptorQ is preferred (RFC 6330 fountain code). If the wheel/rust build is
+# unavailable the code automatically falls back to Reed-Solomon (reedsolo).
+raptorq>=1.7            # optional; pure fountain code
+reedsolo>=1.7           # fallback FEC backend
+
+# Deep-learning detectors: MalConv + MalConvGCT raw-byte CNNs ---------------
+# CPU-only build keeps this to ~250 MB; the CUDA default is ~2.5 GB.
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.0              # required by malconv_ml and malconvgct_ml

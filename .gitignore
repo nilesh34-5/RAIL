@@ -1,0 +1,31 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+# runtime data & downloaded models (regenerate with scripts/)
+data/keys/
+data/received/
+data/recv_*/
+data/spool/*
+!data/spool/.gitkeep
+data/*.jsonl
+models/ember2024/
+models/ember/
+models/malconv/
+models/yara/external/
+models/*.joblib
+deploy/docker/received/
+deploy/vagrant/exchange/
+deploy/vagrant/.vagrant/
+*.log
+# packaged copies and test-run output (regenerate with scripts/package_dist.py and wired_test/)
+dist/
+results_wired/
+*.tgz
+config/speed_noml.yaml
+config/loss_*.yaml
+# manuscript and submission files are kept out of the code repository
+*.pdf
+*.tex
+*.zip
+evaluation_testbed_2026-10/CHANGES_TO_PAPER.md

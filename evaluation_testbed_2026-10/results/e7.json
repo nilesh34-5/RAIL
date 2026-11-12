@@ -1,0 +1,123 @@
+{
+  "lambda": 1.0,
+  "trials": 4000,
+  "n_corpus": 1149,
+  "per_B": [
+    {
+      "B": 2,
+      "bound_bits": 1.0,
+      "bound_Cbps": 1.0,
+      "reachable_bands": [
+        0,
+        1
+      ],
+      "n_reachable": 2,
+      "mi_padded_bits": 0.33057046121906136,
+      "C_padded_bps": 0.33057046121906136,
+      "ci95": [
+        0.3075384746321049,
+        0.3553435529707526
+      ],
+      "mi_strong_padded_bits": 0.33038679509945057,
+      "mi_strong_nopadding_bits": 0.8285171381588565,
+      "within_bound_padded": true,
+      "strong_padded_within_bound": true,
+      "strong_nopadding_exceeds_bound": false,
+      "pct_of_bound_padded": 33.05704612190613
+    },
+    {
+      "B": 4,
+      "bound_bits": 2.0,
+      "bound_Cbps": 2.0,
+      "reachable_bands": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "n_reachable": 4,
+      "mi_padded_bits": 0.9702919470811467,
+      "C_padded_bps": 0.9702919470811467,
+      "ci95": [
+        0.9392797885755492,
+        1.0109169449743272
+      ],
+      "mi_strong_padded_bits": 0.9702839589379411,
+      "mi_strong_nopadding_bits": 2.0036915915211773,
+      "within_bound_padded": true,
+      "strong_padded_within_bound": true,
+      "strong_nopadding_exceeds_bound": true,
+      "pct_of_bound_padded": 48.51459735405734
+    },
+    {
+      "B": 8,
+      "bound_bits": 3.0,
+      "bound_Cbps": 3.0,
+      "reachable_bands": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "n_reachable": 8,
+      "mi_padded_bits": 0.9187712614809168,
+      "C_padded_bps": 0.9187712614809168,
+      "ci95": [
+        0.8869315541970173,
+        0.9640543029224843
+      ],
+      "mi_strong_padded_bits": 0.9229483298921228,
+      "mi_strong_nopadding_bits": 1.981240151594974,
+      "within_bound_padded": true,
+      "strong_padded_within_bound": true,
+      "strong_nopadding_exceeds_bound": false,
+      "pct_of_bound_padded": 30.62570871603056
+    },
+    {
+      "B": 16,
+      "bound_bits": 4.0,
+      "bound_Cbps": 4.0,
+      "reachable_bands": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "n_reachable": 16,
+      "mi_padded_bits": 0.8087764254266875,
+      "C_padded_bps": 0.8087764254266875,
+      "ci95": [
+        0.8016395164094366,
+        0.8799103621488391
+      ],
+      "mi_strong_padded_bits": 0.844042613907382,
+      "mi_strong_nopadding_bits": 2.0129031654768865,
+      "within_bound_padded": true,
+      "strong_padded_within_bound": true,
+      "strong_nopadding_exceeds_bound": false,
+      "pct_of_bound_padded": 20.219410635667188
+    }
+  ],
+  "unquantised_baseline": {
+    "object_size": 10485760,
+    "distinct_chunk_counts": 390,
+    "chunk_count_entropy_bits": 7.131596547714132,
+    "note": "continuous-score chunking leaks this many bits/object; RAIL caps it at log2(B)"
+  }
+}

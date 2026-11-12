@@ -1,0 +1,62 @@
+# RAIL one-way transfer, enforced by network topology.
+#
+#   net_a  : sender  <-> diode        (sender can ONLY reach the diode)
+#   net_b  : diode   <-> receiver     (receiver is unreachable from the sender)
+#
+# The diode container is the ONLY member of both networks, and it forwards
+# datagrams strictly A -> B (diode_relay.py never sends back).  The sender has
+# no route to the receiver, so no reverse channel can exist.
+#
+#   docker compose build
+#   docker compose up -d receiver diode
+#   docker compose run --rm sender \
+#       python -m railcds.cli send --spool data/spool
+#   docker compose logs -f receiver
+#
+# Keys: generate on the sender and share ONLY the public key with the receiver
+# via the ./exchange bind mount (see command lines below / README_NETWORK.md).
+
+services:
+  receiver:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    environment:
+      RAIL_BIND_HOST: "0.0.0.0"
+      RAIL_BIND_PORT: "52080"
+    networks: [net_b]
+    volumes:
+      - ./exchange:/opt/rail/data/keys        # receives the public key
+      - ./received:/opt/rail/data/received
+    command: python -m railcds.cli receive --out data/received
+
+  diode:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    depends_on: [receiver]
+    networks: [net_a, net_b]
+    command: >
+      python deploy/diode-emulator/diode_relay.py
+      --in 0.0.0.0:52080 --out receiver:52080 --log
+
+  sender:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    environment:
+      RAIL_SEND_HOST: "diode"                 # sender can only reach the diode
+      RAIL_SEND_PORT: "52080"
+    networks: [net_a]
+    volumes:
+      - ./exchange:/opt/rail/data/keys        # publishes the public key
+    # run on demand:  docker compose run --rm sender python -m railcds.cli send ...
+    command: >
+      sh -c "python scripts/gen_keys.py && python scripts/make_test_object.py &&
+             python -m railcds.cli send --spool data/spool"
+
+networks:
+  net_a:
+    internal: true      # no external egress; isolates Network A
+  net_b:
+    internal: true      # no external egress; isolates Network B

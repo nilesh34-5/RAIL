@@ -1,0 +1,946 @@
+{
+  "E1": {
+    "experiment": "E1 one-way enforcement",
+    "reverse_probes": {
+      "icmp_echo": {
+        "exit": 1,
+        "blocked": true
+      },
+      "tcp_22": {
+        "exit": 124,
+        "blocked": true
+      },
+      "tcp_52080": {
+        "exit": 124,
+        "blocked": true
+      },
+      "udp_52080": {
+        "note": "sendto never errors on a diode; see frames_from_B_at_A"
+      },
+      "arp_whohas": {
+        "exit": 1,
+        "blocked": true
+      },
+      "raw_afpacket_frames_arriving_at_A": 0
+    },
+    "frames_from_B_observed_at_A": 0,
+    "total_frames_captured_at_A": 0,
+    "ipt_A_input_drop_packets": 0,
+    "ipt_B_output_drop_packets": 10,
+    "ebpf_A": {
+      "drop_out": 4
+    },
+    "ebpf_B": {
+      "drop_out": 4
+    },
+    "raw_frame_control": {
+      "description": "AF_PACKET frame from B bypasses iptables (reaches local egress) and is stopped only by the tc clsact eBPF",
+      "iptables_blocks_ip_egress_locally": "UDP sendto returned EPERM at B",
+      "raw_frames_reaching_wire_tc_off": 5,
+      "raw_frames_reaching_wire_tc_on": 0
+    }
+  },
+  "E2": [
+    {
+      "backend": "raptorq",
+      "model": "ge",
+      "rate": 0.1,
+      "repeat": 1,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 0.5406227111816406
+    },
+    {
+      "backend": "raptorq",
+      "model": "ge",
+      "rate": 0.1,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0812454223632812
+    },
+    {
+      "backend": "raptorq",
+      "model": "ge",
+      "rate": 0.25,
+      "repeat": 1,
+      "mean_delivery": 0.96875,
+      "sd": 0.05412658773652741,
+      "wilson95": [
+        0.8425539219962727,
+        0.9944622826374491
+      ],
+      "reps": 4,
+      "eta": 0.5406227111816406
+    },
+    {
+      "backend": "raptorq",
+      "model": "ge",
+      "rate": 0.25,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0812454223632812
+    },
+    {
+      "backend": "raptorq",
+      "model": "ge",
+      "rate": 0.35,
+      "repeat": 1,
+      "mean_delivery": 0.25,
+      "sd": 0.125,
+      "wilson95": [
+        0.13252243982621553,
+        0.42106891770246624
+      ],
+      "reps": 4,
+      "eta": 0.5406227111816406
+    },
+    {
+      "backend": "raptorq",
+      "model": "ge",
+      "rate": 0.35,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0812454223632812
+    },
+    {
+      "backend": "raptorq",
+      "model": "ge",
+      "rate": 0.45,
+      "repeat": 1,
+      "mean_delivery": 0.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.0,
+        0.1071827150573635
+      ],
+      "reps": 4,
+      "eta": 0.5406227111816406
+    },
+    {
+      "backend": "raptorq",
+      "model": "ge",
+      "rate": 0.45,
+      "repeat": 2,
+      "mean_delivery": 0.28125,
+      "sd": 0.10364452469860624,
+      "wilson95": [
+        0.15564406845647866,
+        0.45374836938111784
+      ],
+      "reps": 4,
+      "eta": 2.0812454223632812
+    },
+    {
+      "backend": "raptorq",
+      "model": "none",
+      "rate": 0.0,
+      "repeat": 1,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 0.5406227111816406
+    },
+    {
+      "backend": "raptorq",
+      "model": "random",
+      "rate": 0.1,
+      "repeat": 1,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 0.5406227111816406
+    },
+    {
+      "backend": "raptorq",
+      "model": "random",
+      "rate": 0.1,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0812454223632812
+    },
+    {
+      "backend": "raptorq",
+      "model": "random",
+      "rate": 0.25,
+      "repeat": 1,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 0.5406227111816406
+    },
+    {
+      "backend": "raptorq",
+      "model": "random",
+      "rate": 0.25,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0812454223632812
+    },
+    {
+      "backend": "raptorq",
+      "model": "random",
+      "rate": 0.35,
+      "repeat": 1,
+      "mean_delivery": 0.375,
+      "sd": 0.08838834764831845,
+      "wilson95": [
+        0.2293366846595921,
+        0.5474589941047487
+      ],
+      "reps": 4,
+      "eta": 0.5406227111816406
+    },
+    {
+      "backend": "raptorq",
+      "model": "random",
+      "rate": 0.35,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0812454223632812
+    },
+    {
+      "backend": "raptorq",
+      "model": "random",
+      "rate": 0.45,
+      "repeat": 1,
+      "mean_delivery": 0.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.0,
+        0.1071827150573635
+      ],
+      "reps": 4,
+      "eta": 0.5406227111816406
+    },
+    {
+      "backend": "raptorq",
+      "model": "random",
+      "rate": 0.45,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0812454223632812
+    },
+    {
+      "backend": "reedsolo",
+      "model": "ge",
+      "rate": 0.1,
+      "repeat": 1,
+      "mean_delivery": 0.84375,
+      "sd": 0.10364452469860624,
+      "wilson95": [
+        0.6824550744643347,
+        0.9313568089337277
+      ],
+      "reps": 4,
+      "eta": 0.5446243286132812
+    },
+    {
+      "backend": "reedsolo",
+      "model": "ge",
+      "rate": 0.1,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0892486572265625
+    },
+    {
+      "backend": "reedsolo",
+      "model": "ge",
+      "rate": 0.25,
+      "repeat": 1,
+      "mean_delivery": 0.5,
+      "sd": 0.08838834764831845,
+      "wilson95": [
+        0.33630614316859386,
+        0.6636938568314061
+      ],
+      "reps": 4,
+      "eta": 0.5446243286132812
+    },
+    {
+      "backend": "reedsolo",
+      "model": "ge",
+      "rate": 0.25,
+      "repeat": 2,
+      "mean_delivery": 0.90625,
+      "sd": 0.05412658773652741,
+      "wilson95": [
+        0.7578150066422117,
+        0.9675990373736805
+      ],
+      "reps": 4,
+      "eta": 2.0892486572265625
+    },
+    {
+      "backend": "reedsolo",
+      "model": "ge",
+      "rate": 0.35,
+      "repeat": 1,
+      "mean_delivery": 0.28125,
+      "sd": 0.184877493221863,
+      "wilson95": [
+        0.15564406845647866,
+        0.45374836938111784
+      ],
+      "reps": 4,
+      "eta": 0.5446243286132812
+    },
+    {
+      "backend": "reedsolo",
+      "model": "ge",
+      "rate": 0.35,
+      "repeat": 2,
+      "mean_delivery": 0.8125,
+      "sd": 0.10825317547305482,
+      "wilson95": [
+        0.6469050424507756,
+        0.9111057606383722
+      ],
+      "reps": 4,
+      "eta": 2.0892486572265625
+    },
+    {
+      "backend": "reedsolo",
+      "model": "ge",
+      "rate": 0.45,
+      "repeat": 1,
+      "mean_delivery": 0.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.0,
+        0.1071827150573635
+      ],
+      "reps": 4,
+      "eta": 0.5446243286132812
+    },
+    {
+      "backend": "reedsolo",
+      "model": "ge",
+      "rate": 0.45,
+      "repeat": 2,
+      "mean_delivery": 0.125,
+      "sd": 0.15309310892394862,
+      "wilson95": [
+        0.049700538444743,
+        0.28068649784827965
+      ],
+      "reps": 4,
+      "eta": 2.0892486572265625
+    },
+    {
+      "backend": "reedsolo",
+      "model": "none",
+      "rate": 0.0,
+      "repeat": 1,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 0.5446243286132812
+    },
+    {
+      "backend": "reedsolo",
+      "model": "random",
+      "rate": 0.1,
+      "repeat": 1,
+      "mean_delivery": 0.96875,
+      "sd": 0.05412658773652741,
+      "wilson95": [
+        0.8425539219962727,
+        0.9944622826374491
+      ],
+      "reps": 4,
+      "eta": 0.5446243286132812
+    },
+    {
+      "backend": "reedsolo",
+      "model": "random",
+      "rate": 0.1,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0892486572265625
+    },
+    {
+      "backend": "reedsolo",
+      "model": "random",
+      "rate": 0.25,
+      "repeat": 1,
+      "mean_delivery": 0.9375,
+      "sd": 0.0625,
+      "wilson95": [
+        0.7985253275199642,
+        0.9826897968048427
+      ],
+      "reps": 4,
+      "eta": 0.5446243286132812
+    },
+    {
+      "backend": "reedsolo",
+      "model": "random",
+      "rate": 0.25,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0892486572265625
+    },
+    {
+      "backend": "reedsolo",
+      "model": "random",
+      "rate": 0.35,
+      "repeat": 1,
+      "mean_delivery": 0.0625,
+      "sd": 0.10825317547305482,
+      "wilson95": [
+        0.01731020319515724,
+        0.20147467248003584
+      ],
+      "reps": 4,
+      "eta": 0.5446243286132812
+    },
+    {
+      "backend": "reedsolo",
+      "model": "random",
+      "rate": 0.35,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0892486572265625
+    },
+    {
+      "backend": "reedsolo",
+      "model": "random",
+      "rate": 0.45,
+      "repeat": 1,
+      "mean_delivery": 0.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.0,
+        0.1071827150573635
+      ],
+      "reps": 4,
+      "eta": 0.5446243286132812
+    },
+    {
+      "backend": "reedsolo",
+      "model": "random",
+      "rate": 0.45,
+      "repeat": 2,
+      "mean_delivery": 1.0,
+      "sd": 0.0,
+      "wilson95": [
+        0.8928172849426365,
+        1.0
+      ],
+      "reps": 4,
+      "eta": 2.0892486572265625
+    }
+  ],
+  "E34": {
+    "size": 10485760,
+    "reps": 30,
+    "bands": 4,
+    "rows": [
+      {
+        "config": "fixed_coarse",
+        "chunk_size": 1048576,
+        "chunks": 10,
+        "integrity_time_ms_mean": 9.073038666520006,
+        "integrity_time_ms_sd": 1.4224626648948255,
+        "metadata_bytes": 463,
+        "metadata_pct": 0.0044155120849609375,
+        "merkle_proof_len": 4,
+        "fec_overhead_eta": 0.5367569828454508,
+        "fec_encode_s": 11.049222948000534,
+        "anchor_interval_s": null
+      },
+      {
+        "config": "fixed_fine",
+        "chunk_size": 16384,
+        "chunks": 640,
+        "integrity_time_ms_mean": 11.97959229997044,
+        "integrity_time_ms_sd": 2.1744348194067205,
+        "metadata_bytes": 4224,
+        "metadata_pct": 0.040283203125,
+        "merkle_proof_len": 10,
+        "fec_overhead_eta": 0.5368060065821039,
+        "fec_encode_s": 11.151090140999258,
+        "anchor_interval_s": null
+      },
+      {
+        "config": "band_0",
+        "chunk_size": 1048576,
+        "chunks": 10,
+        "integrity_time_ms_mean": 10.197071433291663,
+        "integrity_time_ms_sd": 1.072724901527244,
+        "metadata_bytes": 463,
+        "metadata_pct": 0.0044155120849609375,
+        "merkle_proof_len": 4,
+        "fec_overhead_eta": 0.5367569828454508,
+        "fec_encode_s": 10.74816338600067,
+        "anchor_interval_s": 300.0
+      },
+      {
+        "config": "band_1",
+        "chunk_size": 370728,
+        "chunks": 29,
+        "integrity_time_ms_mean": 9.41193966676413,
+        "integrity_time_ms_sd": 0.8032561830296682,
+        "metadata_bytes": 586,
+        "metadata_pct": 0.005588531494140625,
+        "merkle_proof_len": 5,
+        "fec_overhead_eta": 0.5367389573521544,
+        "fec_encode_s": 11.420375335999779,
+        "anchor_interval_s": 170.9375
+      },
+      {
+        "config": "band_2",
+        "chunk_size": 131072,
+        "chunks": 80,
+        "integrity_time_ms_mean": 10.152526199999556,
+        "integrity_time_ms_sd": 0.7992093191587022,
+        "metadata_bytes": 943,
+        "metadata_pct": 0.008993148803710938,
+        "merkle_proof_len": 7,
+        "fec_overhead_eta": 0.5366866418516902,
+        "fec_encode_s": 11.250940274999266,
+        "anchor_interval_s": 78.75
+      },
+      {
+        "config": "band_3",
+        "chunk_size": 46341,
+        "chunks": 227,
+        "integrity_time_ms_mean": 8.835364733416402,
+        "integrity_time_ms_sd": 0.48258416466387977,
+        "metadata_bytes": 1746,
+        "metadata_pct": 0.016651153564453125,
+        "merkle_proof_len": 8,
+        "fec_overhead_eta": 0.5366690056458743,
+        "fec_encode_s": 11.072089719999894,
+        "anchor_interval_s": 23.4375
+      }
+    ],
+    "note_anchor": "per-object anchoring = 1000 writes/1000 objects; RAIL anchors the highest band seen since the last anchor at interval T(r_tilde)"
+  },
+  "E3_stage": {
+    "size_mib": 10,
+    "risk": 0.2697247417998808,
+    "band": 1,
+    "S2_inspect_s": 39.67036412200014,
+    "S3_integrity_s": 0.018568100999800663,
+    "S4_fec_s": 10.071719151000252,
+    "pipeline_s": 49.76065137400019,
+    "goodput_MBps": 0.2009619995695027,
+    "S3_pct": 0.037314827051284236,
+    "symbols": 15362
+  },
+  "E3_wire_goodput": [
+    {
+      "object": "obj_1MiB.txt",
+      "size": 1048576,
+      "wall_s": 3.6600107779995597,
+      "goodput_MBps": 0.27322323912569646,
+      "band": 0,
+      "chunks": 1
+    },
+    {
+      "object": "obj_4MiB.txt",
+      "size": 4194304,
+      "wall_s": 13.871045410999614,
+      "goodput_MBps": 0.28837047832227813,
+      "band": 0,
+      "chunks": 4
+    },
+    {
+      "object": "obj_10MiB.txt",
+      "size": 10485760,
+      "wall_s": 34.46098544199958,
+      "goodput_MBps": 0.2901832281270873,
+      "band": 0,
+      "chunks": 10
+    }
+  ],
+  "E5": {
+    "n": 1154,
+    "n_benign": 1149,
+    "n_positive": 5,
+    "theta_blk": 0.9,
+    "tiers": {
+      "structural": {
+        "TP": 0,
+        "FP": 0,
+        "TN": 1149,
+        "FN": 5,
+        "TPR": 0.0,
+        "FPR": 0.0,
+        "F1": 0.0,
+        "AUC": 0.5926022628372498
+      },
+      "signature_yara": {
+        "TP": 2,
+        "FP": 0,
+        "TN": 1149,
+        "FN": 3,
+        "TPR": 0.4,
+        "FPR": 0.0,
+        "F1": 0.5714285714285714,
+        "AUC": 0.8687554395126197
+      },
+      "ml_lightgbm_cnn": {
+        "TP": 3,
+        "FP": 202,
+        "TN": 947,
+        "FN": 2,
+        "TPR": 0.6,
+        "FPR": 0.17580504786771106,
+        "F1": 0.02857142857142857,
+        "AUC": 0.7991296779808529
+      }
+    },
+    "fusion": {
+      "mean": {
+        "TP": 0,
+        "FP": 0,
+        "TN": 1149,
+        "FN": 5,
+        "TPR": 0.0,
+        "FPR": 0.0,
+        "F1": 0.0,
+        "AUC": 0.8670147954743255
+      },
+      "maximum": {
+        "TP": 4,
+        "FP": 236,
+        "TN": 913,
+        "FN": 1,
+        "TPR": 0.8,
+        "FPR": 0.20539599651871193,
+        "F1": 0.0326530612244898,
+        "AUC": 0.8822454308093994
+      },
+      "noisy_or_RAIL": {
+        "TP": 5,
+        "FP": 246,
+        "TN": 903,
+        "FN": 0,
+        "TPR": 1.0,
+        "FPR": 0.21409921671018275,
+        "F1": 0.0390625,
+        "AUC": 0.9039164490861619
+      }
+    },
+    "inspect_ms_mean": 507.53418572096786,
+    "inspect_ms_median": 300.17332350007564,
+    "benign_only": {
+      "n": 1149,
+      "risk_mean": 0.4740442184676311,
+      "risk_max": 0.9968879242403665,
+      "false_positives_at_theta": 246,
+      "fpr_pct": 21.409921671018278
+    },
+    "benign_by_class": {
+      "archive": {
+        "n": 40,
+        "mean": 0.9273042751231617,
+        "max": 0.9954916668730847
+      },
+      "elf": {
+        "n": 150,
+        "mean": 0.15105160680366436,
+        "max": 0.9247674323215433
+      },
+      "image": {
+        "n": 120,
+        "mean": 0.9299897296498395,
+        "max": 0.9946870376904484
+      },
+      "office": {
+        "n": 114,
+        "mean": 0.8890204612052539,
+        "max": 0.9968879242403665
+      },
+      "pdf": {
+        "n": 200,
+        "mean": 0.45206762441104253,
+        "max": 0.9954127993782783
+      },
+      "pe": {
+        "n": 300,
+        "mean": 0.1735105415239495,
+        "max": 0.8872057349242943
+      },
+      "text": {
+        "n": 225,
+        "mean": 0.5756138111958177,
+        "max": 0.9892759475268208
+      }
+    }
+  },
+  "E6": [
+    {
+      "attack": "bitflip",
+      "objects_sent": 20,
+      "delivered": 0,
+      "rejected_at_S5": 20,
+      "not_delivered": 20,
+      "detected_pct": 100.0
+    },
+    {
+      "attack": "chunk_swap",
+      "objects_sent": 20,
+      "delivered": 0,
+      "rejected_at_S5": 20,
+      "not_delivered": 20,
+      "detected_pct": 100.0
+    },
+    {
+      "attack": "split_merge",
+      "objects_sent": 20,
+      "delivered": 0,
+      "rejected_at_S5": 20,
+      "not_delivered": 20,
+      "detected_pct": 100.0
+    },
+    {
+      "attack": "truncation",
+      "objects_sent": 20,
+      "delivered": 0,
+      "rejected_at_S5": 20,
+      "not_delivered": 20,
+      "detected_pct": 100.0
+    },
+    {
+      "attack": "forged_sig",
+      "objects_sent": 20,
+      "delivered": 0,
+      "rejected_at_S5": 20,
+      "not_delivered": 20,
+      "detected_pct": 100.0
+    },
+    {
+      "attack": "replay",
+      "objects_sent": 24,
+      "delivered": 12,
+      "rejected_at_S5": 12,
+      "not_delivered": 12,
+      "detected_pct": 100.0
+    },
+    {
+      "attack": "log_entry_edit",
+      "detected_by_chain": true,
+      "detected_pct": 100.0,
+      "note": "hash-chain link broken (Eq. log)"
+    },
+    {
+      "attack": "log_tail_truncation",
+      "detected_by_chain": false,
+      "detected_pct": 0.0,
+      "note": "remaining prefix self-consistent; needs ledger anchor to detect"
+    }
+  ],
+  "E7": {
+    "lambda": 1.0,
+    "trials": 4000,
+    "n_corpus": 1149,
+    "per_B": [
+      {
+        "B": 2,
+        "bound_bits": 1.0,
+        "bound_Cbps": 1.0,
+        "reachable_bands": [
+          0,
+          1
+        ],
+        "n_reachable": 2,
+        "mi_padded_bits": 0.33057046121906136,
+        "C_padded_bps": 0.33057046121906136,
+        "ci95": [
+          0.3075384746321049,
+          0.3553435529707526
+        ],
+        "mi_strong_padded_bits": 0.33038679509945057,
+        "mi_strong_nopadding_bits": 0.8285171381588565,
+        "within_bound_padded": true,
+        "strong_padded_within_bound": true,
+        "strong_nopadding_exceeds_bound": false,
+        "pct_of_bound_padded": 33.05704612190613
+      },
+      {
+        "B": 4,
+        "bound_bits": 2.0,
+        "bound_Cbps": 2.0,
+        "reachable_bands": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "n_reachable": 4,
+        "mi_padded_bits": 0.9702919470811467,
+        "C_padded_bps": 0.9702919470811467,
+        "ci95": [
+          0.9392797885755492,
+          1.0109169449743272
+        ],
+        "mi_strong_padded_bits": 0.9702839589379411,
+        "mi_strong_nopadding_bits": 2.0036915915211773,
+        "within_bound_padded": true,
+        "strong_padded_within_bound": true,
+        "strong_nopadding_exceeds_bound": true,
+        "pct_of_bound_padded": 48.51459735405734
+      },
+      {
+        "B": 8,
+        "bound_bits": 3.0,
+        "bound_Cbps": 3.0,
+        "reachable_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "n_reachable": 8,
+        "mi_padded_bits": 0.9187712614809168,
+        "C_padded_bps": 0.9187712614809168,
+        "ci95": [
+          0.8869315541970173,
+          0.9640543029224843
+        ],
+        "mi_strong_padded_bits": 0.9229483298921228,
+        "mi_strong_nopadding_bits": 1.981240151594974,
+        "within_bound_padded": true,
+        "strong_padded_within_bound": true,
+        "strong_nopadding_exceeds_bound": false,
+        "pct_of_bound_padded": 30.62570871603056
+      },
+      {
+        "B": 16,
+        "bound_bits": 4.0,
+        "bound_Cbps": 4.0,
+        "reachable_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "n_reachable": 16,
+        "mi_padded_bits": 0.8087764254266875,
+        "C_padded_bps": 0.8087764254266875,
+        "ci95": [
+          0.8016395164094366,
+          0.8799103621488391
+        ],
+        "mi_strong_padded_bits": 0.844042613907382,
+        "mi_strong_nopadding_bits": 2.0129031654768865,
+        "within_bound_padded": true,
+        "strong_padded_within_bound": true,
+        "strong_nopadding_exceeds_bound": false,
+        "pct_of_bound_padded": 20.219410635667188
+      }
+    ],
+    "unquantised_baseline": {
+      "object_size": 10485760,
+      "distinct_chunk_counts": 390,
+      "chunk_count_entropy_bits": 7.131596547714132,
+      "note": "continuous-score chunking leaks this many bits/object; RAIL caps it at log2(B)"
+    }
+  }
+}

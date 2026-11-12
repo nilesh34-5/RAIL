@@ -1,0 +1,44 @@
+# RAIL two-VM lab: an isolated one-way link between Network A (sender) and
+# Network B (receiver).  Both VMs sit on a host-only private network; iptables
+# rules make traffic flow ONLY from A -> B (see provision_sender/receiver.sh),
+# emulating a data diode without special hardware.
+#
+#   vagrant up
+#   vagrant ssh netB   # terminal 1: start the receiver (see README_NETWORK.md)
+#   vagrant ssh netA   # terminal 2: send objects
+#
+# The host project folder is shared read-only into /opt/rail on both VMs.
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-22.04"
+
+  # share the RAIL project (this repo) into both VMs
+  config.vm.synced_folder "../..", "/opt/rail",
+    mount_options: ["ro"], SharedFoldersEnableSymlinksCreate: false
+  # a small writable exchange dir for the public key + spool
+  config.vm.synced_folder "./exchange", "/opt/exchange", create: true
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 2048
+    vb.cpus = 2
+    # Deny promiscuous mode on the diode segment so neither VM (nor anything
+    # else attached to the internal network) can sniff the other's traffic.
+    vb.customize ["modifyvm", :id, "--nicpromisc2", "deny"]
+  end
+
+  # ---- Network A : the source / sender gateway --------------------------
+  config.vm.define "netA" do |a|
+    a.vm.hostname = "netA-sender"
+    a.vm.network "private_network", ip: "10.20.0.10", virtualbox__intnet: "rail-diode"
+    a.vm.provision "shell", path: "provision_common.sh"
+    a.vm.provision "shell", path: "provision_sender.sh"
+  end
+
+  # ---- Network B : the destination / receiver gateway -------------------
+  config.vm.define "netB" do |b|
+    b.vm.hostname = "netB-receiver"
+    b.vm.network "private_network", ip: "10.20.0.20", virtualbox__intnet: "rail-diode"
+    b.vm.provision "shell", path: "provision_common.sh"
+    b.vm.provision "shell", path: "provision_receiver.sh"
+  end
+end

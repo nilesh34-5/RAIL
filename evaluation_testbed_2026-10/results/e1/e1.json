@@ -1,0 +1,41 @@
+{
+  "experiment": "E1 one-way enforcement",
+  "reverse_probes": {
+    "icmp_echo": {
+      "exit": 1,
+      "blocked": true
+    },
+    "tcp_22": {
+      "exit": 124,
+      "blocked": true
+    },
+    "tcp_52080": {
+      "exit": 124,
+      "blocked": true
+    },
+    "udp_52080": {
+      "note": "sendto never errors on a diode; see frames_from_B_at_A"
+    },
+    "arp_whohas": {
+      "exit": 1,
+      "blocked": true
+    },
+    "raw_afpacket_frames_arriving_at_A": 0
+  },
+  "frames_from_B_observed_at_A": 0,
+  "total_frames_captured_at_A": 0,
+  "ipt_A_input_drop_packets": 0,
+  "ipt_B_output_drop_packets": 10,
+  "ebpf_A": {
+    "drop_out": 4
+  },
+  "ebpf_B": {
+    "drop_out": 4
+  },
+  "raw_frame_control": {
+    "description": "AF_PACKET frame from B bypasses iptables (reaches local egress) and is stopped only by the tc clsact eBPF",
+    "iptables_blocks_ip_egress_locally": "UDP sendto returned EPERM at B",
+    "raw_frames_reaching_wire_tc_off": 5,
+    "raw_frames_reaching_wire_tc_on": 0
+  }
+}

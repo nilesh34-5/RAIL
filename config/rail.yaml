@@ -1,0 +1,115 @@
+# =============================================================================
+# RAIL - Risk-Adaptive Integrity Layering : reference configuration
+#
+# Every tunable named in the paper (Software-Based Data Diodes for Trusted
+# Network Integration, RAIL) is exposed here.  Equation numbers refer to the
+# paper.
+# =============================================================================
+
+policy:
+  # Policy identifier folded into the session-bound initial hash H0 (Sec. "Session
+  # Binding").  Bump this whenever detector configuration changes so that chains
+  # verified later can be tied to the rules that were in force.
+  id: "rail-policy-2026.08"
+
+# ----------------------------------------------------------------------------
+# Stage S2 - Layered inspection / risk assessment  (Eq. 1, Noisy-OR)
+# ----------------------------------------------------------------------------
+inspection:
+  # Objects with r(O) >= block_threshold (theta_blk) are quarantined and never
+  # transmitted.
+  block_threshold: 0.90
+
+  # Each detector contributes a weighted vote w_i * s_i(O).  Weight is in [0,1];
+  # set to 0 to keep a detector loaded but silent, or `enabled: false` to skip
+  # running it entirely.  Missing optional models are skipped automatically.
+  detectors:
+    protocol_validator:
+      enabled: true
+      weight: 0.6
+    file_type:          # magic-byte + polyglot check (Koch et al. threat)
+      enabled: true
+      weight: 0.8
+    entropy_anomaly:    # IsolationForest over byte histogram
+      enabled: true
+      weight: 0.5
+      model: "models/anomaly_isoforest.joblib"
+    yara_signature:     # offline YARA rules
+      enabled: true
+      weight: 0.9
+      rules_dir: "models/yara"
+    ember2024_ml:       # EMBER2024 LightGBM classifier (multi-format, pretrained)
+      enabled: true
+      weight: 0.95
+      model: "models/ember2024/EMBER2024_all.model"
+    ember_ml:           # classic EMBER2018 LightGBM PE model (optional; needs training)
+      enabled: false
+      weight: 0.9
+      model: "models/ember/ember_model_2018.txt"
+    malconv_ml:         # MalConv deep raw-byte CNN (PyTorch, pretrained)
+      enabled: true
+      weight: 0.85
+      model: "models/malconv/pretrained_malconv.pth"
+    malconvgct_ml:      # MalConvGCT deep byte CNN w/ global channel gating
+      enabled: true
+      weight: 0.9
+      model: "models/malconv/malconvGCT_nocat.checkpoint"
+
+# ----------------------------------------------------------------------------
+# Stage S3 - Adaptive integrity granularity
+# ----------------------------------------------------------------------------
+integrity:
+  # Adaptive chunk size c(r) = c_max * (c_min/c_max)^r        (Eq. 2)
+  chunk_max_bytes: 1048576     # c_max = 1 MiB  (clean traffic -> coarse)
+  chunk_min_bytes: 16384       # c_min = 16 KiB (suspect traffic -> fine)
+
+  # Covert-channel quantisation  r_tilde = floor(r*B)/B       (Eq. 5)
+  # Only r_tilde is used downstream; the continuous score never is.
+  risk_bands: 4                # B ; channel bound C <= lambda*log2(B) (Eq. 6)
+
+  hash_algorithm: "sha256"     # H_i = SHA-256(H_{i-1}||seq||len||m_i)  (Eq. 3)
+
+# ----------------------------------------------------------------------------
+# Ledger anchoring  T(r) = T_min + (T_max - T_min)(1-r)^gamma  (Eq. 4)
+# ----------------------------------------------------------------------------
+anchoring:
+  t_min_seconds: 5             # T_min : suspicious traffic anchors often
+  t_max_seconds: 300           # T_max : quiet traffic anchors rarely
+  gamma: 2.0                   # curve shape; >1 defers cost to high risk
+  backend: "file"              # file | http  (see ledger.endpoint)
+  ledger_path: "data/ledger.jsonl"
+  # endpoint: "http://ledger:8545/anchor"   # used when backend: http
+
+audit:
+  sender_log:   "data/audit_sender.jsonl"
+  receiver_log: "data/audit_receiver.jsonl"
+
+# ----------------------------------------------------------------------------
+# Stage S4 / S4' - Forward error correction over the one-way channel
+# ----------------------------------------------------------------------------
+fec:
+  backend: "auto"              # auto | raptorq | reedsolo
+  symbol_size: 1024            # bytes per encoding symbol
+  # Fraction of extra repair symbols per generation.  Must comfortably exceed
+  # the expected link loss: large objects span many independent generations, so
+  # a thin margin makes whole-object delivery unlikely (set well above loss).
+  overhead: 0.5
+  repeat: 1                    # times each symbol is (re)transmitted (blind rep.)
+
+# ----------------------------------------------------------------------------
+# Transport - the physical/virtual unidirectional link
+# ----------------------------------------------------------------------------
+transport:
+  # The sender ONLY sends; the receiver ONLY listens.  There is no back channel.
+  send_host: "10.0.2.9"       # receiver address as seen from the sender
+  send_port: 52080             # UDP datagram port on Network B
+  bind_host: "0.0.0.0"         # receiver bind address
+  bind_port: 52080
+  mtu: 1400                    # max UDP payload; symbols are framed to fit
+  pace_ms: 0.5                 # inter-datagram delay (throttle / diode timing)
+
+crypto:
+  # Ed25519 keypair.  The SENDER signs Merkle roots; the RECEIVER holds only the
+  # public key.  Generate with:  python scripts/gen_keys.py
+  sender_private_key: "data/keys/sender_ed25519.key"
+  sender_public_key:  "data/keys/sender_ed25519.pub"

@@ -1,0 +1,8 @@
+{"attack": "bitflip", "objects_sent": 20, "delivered": 0, "rejected_at_S5": 20, "not_delivered": 20, "detected_pct": 100.0}
+{"attack": "chunk_swap", "objects_sent": 20, "delivered": 0, "rejected_at_S5": 20, "not_delivered": 20, "detected_pct": 100.0}
+{"attack": "split_merge", "objects_sent": 20, "delivered": 0, "rejected_at_S5": 20, "not_delivered": 20, "detected_pct": 100.0}
+{"attack": "truncation", "objects_sent": 20, "delivered": 0, "rejected_at_S5": 20, "not_delivered": 20, "detected_pct": 100.0}
+{"attack": "forged_sig", "objects_sent": 20, "delivered": 0, "rejected_at_S5": 20, "not_delivered": 20, "detected_pct": 100.0}
+{"attack": "replay", "objects_sent": 24, "delivered": 12, "rejected_at_S5": 12, "not_delivered": 12, "detected_pct": 100.0}
+{"attack": "log_entry_edit", "detected_by_chain": true, "detected_pct": 100.0, "note": "hash-chain link broken (Eq. log)"}
+{"attack": "log_tail_truncation", "detected_by_chain": false, "detected_pct": 0.0, "note": "remaining prefix self-consistent; needs ledger anchor to detect"}

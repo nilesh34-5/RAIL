@@ -1,0 +1,232 @@
+{
+  "environment": {
+    "cpus": 8,
+    "system": "Windows",
+    "release": "10",
+    "python": "3.13.7",
+    "detectors": [
+      "protocol_validator",
+      "file_type",
+      "entropy_anomaly",
+      "yara_signature",
+      "ember2024_ml",
+      "malconv_ml",
+      "malconvgct_ml"
+    ]
+  },
+  "E1_goodput": [
+    {
+      "size_mb": 1.0,
+      "band": 3,
+      "inspect": 0.26576320290864436,
+      "integrity": 99.25065980815891,
+      "fec": 0.29348875245708844,
+      "end_to_end": 0.13927364685706925
+    },
+    {
+      "size_mb": 4.0,
+      "band": 3,
+      "inspect": 0.28156580971444006,
+      "integrity": 336.6096632866724,
+      "fec": 0.2517128881044487,
+      "end_to_end": 0.13284943082941794
+    },
+    {
+      "size_mb": 16.0,
+      "band": 3,
+      "inspect": 0.265496732746312,
+      "integrity": 327.5892563863659,
+      "fec": 0.21192281772578114,
+      "end_to_end": 0.11780954794517706
+    }
+  ],
+  "E2_integrity": [
+    {
+      "band": 0,
+      "r": 0.0,
+      "chunk_size": 1048576,
+      "chunks": 16,
+      "ms": 27.965699322521687,
+      "mbps": 572.1294438403219,
+      "meta_bytes": 539,
+      "meta_pct": 0.0032126903533935547,
+      "breakdown": {
+        "chunk": 0.008229799568653107,
+        "hashchain": 0.019330250099301338,
+        "merkle": 0.0001659998670220375,
+        "sign": 0.00023964978754520416
+      }
+    },
+    {
+      "band": 1,
+      "r": 0.25,
+      "chunk_size": 370728,
+      "chunks": 46,
+      "ms": 33.72524958103895,
+      "mbps": 474.4219894222974,
+      "meta_bytes": 762,
+      "meta_pct": 0.004541873931884766,
+      "breakdown": {
+        "chunk": 0.01335175009444356,
+        "hashchain": 0.019802449736744165,
+        "merkle": 0.00030090007930994034,
+        "sign": 0.00027014967054128647
+      }
+    },
+    {
+      "band": 2,
+      "r": 0.5,
+      "chunk_size": 131072,
+      "chunks": 128,
+      "ms": 52.09980020299554,
+      "mbps": 307.10290514857024,
+      "meta_bytes": 1420,
+      "meta_pct": 0.008463859558105469,
+      "breakdown": {
+        "chunk": 0.013675750233232975,
+        "hashchain": 0.0366202499717474,
+        "merkle": 0.0014770003035664558,
+        "sign": 0.0003267996944487095
+      }
+    },
+    {
+      "band": 3,
+      "r": 0.75,
+      "chunk_size": 46341,
+      "chunks": 363,
+      "ms": 30.741349328309298,
+      "mbps": 520.4716237119044,
+      "meta_bytes": 2936,
+      "meta_pct": 0.017499923706054688,
+      "breakdown": {
+        "chunk": 0.010067799594253302,
+        "hashchain": 0.018531349953263998,
+        "merkle": 0.0018791998736560345,
+        "sign": 0.00026299990713596344
+      }
+    }
+  ],
+  "E2_merkle_proof": [
+    {
+      "chunks": 16,
+      "hashes": 4,
+      "bytes": 128
+    },
+    {
+      "chunks": 64,
+      "hashes": 6,
+      "bytes": 192
+    },
+    {
+      "chunks": 256,
+      "hashes": 8,
+      "bytes": 256
+    },
+    {
+      "chunks": 1024,
+      "hashes": 10,
+      "bytes": 320
+    },
+    {
+      "chunks": 4096,
+      "hashes": 12,
+      "bytes": 384
+    }
+  ],
+  "E3_inspection": {
+    "n_benign": 60,
+    "false_positive_rate": 0.0,
+    "benign_mean": 0.2796117584336279,
+    "benign_max": 0.4667228451129539,
+    "threats": [
+      {
+        "name": "polyglot.pdf",
+        "risk": 0.9393774723841347,
+        "blocked": true
+      },
+      {
+        "name": "random.bin",
+        "risk": 0.92739444765416,
+        "blocked": true
+      },
+      {
+        "name": "signature_hit.txt",
+        "risk": 0.9030633908173517,
+        "blocked": true
+      },
+      {
+        "name": "suspicious.ps1",
+        "risk": 0.9822295690507958,
+        "blocked": true
+      }
+    ],
+    "detection_rate": 1.0,
+    "per_detector": {
+      "protocol_validator": 0.0,
+      "file_type": 0.0,
+      "entropy_anomaly": 0.28011336360628597,
+      "yara_signature": 0.15,
+      "ember2024_ml": 0.03021545699506154,
+      "malconv_ml": 2.9545792188164895e-05,
+      "malconvgct_ml": 0.003341180502952039
+    }
+  },
+  "E4_covert": {
+    "bands": 4,
+    "bound_bits_per_s": 2.0,
+    "trials": 120,
+    "steering_accuracy": 0.2,
+    "mutual_information": 0.8366407419411674,
+    "reachable_bands": [
+      1,
+      3
+    ],
+    "within_bound": true
+  },
+  "E5_paper_claims": {
+    "eq2": {
+      "r=0.1": {
+        "chunk_size": 691802,
+        "chunks": 16
+      },
+      "r=0.9": {
+        "chunk_size": 24834,
+        "chunks": 423
+      }
+    },
+    "eq4": {
+      "T(0)": 300.0,
+      "T(1)": 5.0
+    },
+    "eq1": {
+      "noisy_or": 0.90960792032,
+      "mean": 0.16666666666666666
+    }
+  },
+  "E6_fec": [
+    {
+      "loss": 0.0,
+      "recovery_rate": 1.0
+    },
+    {
+      "loss": 0.05,
+      "recovery_rate": 1.0
+    },
+    {
+      "loss": 0.1,
+      "recovery_rate": 1.0
+    },
+    {
+      "loss": 0.2,
+      "recovery_rate": 1.0
+    },
+    {
+      "loss": 0.3,
+      "recovery_rate": 0.6
+    },
+    {
+      "loss": 0.4,
+      "recovery_rate": 0.0
+    }
+  ]
+}

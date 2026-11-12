@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# =============================================================================
+# rail - run any RAIL command inside the project's virtualenv, automatically.
+#
+#     ./rail doctor --role sender --peer 10.0.2.9
+#     ./rail send --spool data/spool
+#     ./rail receive --out data/received
+#     ./rail report
+#     sudo ./rail lockdown --role sender --peer 10.0.2.9 --scope total --apply
+#
+#     ./rail demo_local.py --loss 0.2     # anything in scripts/ works too
+#     ./rail pytest                        # run the test suite
+#
+# No need to run `source .venv/bin/activate` first: the wrapper calls the
+# project's .venv/bin/python3 directly.
+# =============================================================================
+set -uo pipefail
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PY="$HERE/.venv/bin/python3"
+
+if [ ! -x "$PY" ]; then
+    echo "[!] No virtualenv at $HERE/.venv"
+    echo "    Create it first:   bash bootstrap.sh sender"
+    echo "                  or:  bash bootstrap.sh receiver"
+    exit 1
+fi
+
+cd "$HERE" || exit 1
+
+if [ $# -eq 0 ]; then
+    echo "usage: ./rail <command> [args]"
+    echo
+    echo "  doctor --role sender --peer <ip>    pre-flight health check"
+    echo "  detectors                           inspection detector status"
+    echo "  send --spool data/spool             transmit (Network A)"
+    echo "  receive --out data/received         listen (Network B)"
+    echo "  report                              full evidence report"
+    echo "  lockdown --role R --peer <ip> ...   firewall control (use sudo)"
+    echo "  verify-log <file>                   audit chain check"
+    echo
+    echo "  <script>.py [args]                  anything in scripts/"
+    echo "  pytest                              run the test suite"
+    exit 0
+fi
+
+case "$1" in
+    pytest)
+        shift
+        exec "$PY" -m pytest "$@"
+        ;;
+    *.py)
+        # allow ./rail demo_local.py --loss 0.2
+        SCRIPT="$1"; shift
+        if [ -f "$HERE/scripts/$SCRIPT" ]; then
+            exec "$PY" "$HERE/scripts/$SCRIPT" "$@"
+        elif [ -f "$HERE/$SCRIPT" ]; then
+            exec "$PY" "$HERE/$SCRIPT" "$@"
+        else
+            echo "[!] no such script: $SCRIPT (looked in scripts/ and project root)"
+            exit 1
+        fi
+        ;;
+    *)
+        exec "$PY" -m railcds.cli "$@"
+        ;;
+esac

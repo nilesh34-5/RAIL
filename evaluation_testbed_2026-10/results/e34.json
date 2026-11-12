@@ -1,0 +1,86 @@
+{
+  "size": 10485760,
+  "reps": 30,
+  "bands": 4,
+  "rows": [
+    {
+      "config": "fixed_coarse",
+      "chunk_size": 1048576,
+      "chunks": 10,
+      "integrity_time_ms_mean": 9.073038666520006,
+      "integrity_time_ms_sd": 1.4224626648948255,
+      "metadata_bytes": 463,
+      "metadata_pct": 0.0044155120849609375,
+      "merkle_proof_len": 4,
+      "fec_overhead_eta": 0.5367569828454508,
+      "fec_encode_s": 11.049222948000534,
+      "anchor_interval_s": null
+    },
+    {
+      "config": "fixed_fine",
+      "chunk_size": 16384,
+      "chunks": 640,
+      "integrity_time_ms_mean": 11.97959229997044,
+      "integrity_time_ms_sd": 2.1744348194067205,
+      "metadata_bytes": 4224,
+      "metadata_pct": 0.040283203125,
+      "merkle_proof_len": 10,
+      "fec_overhead_eta": 0.5368060065821039,
+      "fec_encode_s": 11.151090140999258,
+      "anchor_interval_s": null
+    },
+    {
+      "config": "band_0",
+      "chunk_size": 1048576,
+      "chunks": 10,
+      "integrity_time_ms_mean": 10.197071433291663,
+      "integrity_time_ms_sd": 1.072724901527244,
+      "metadata_bytes": 463,
+      "metadata_pct": 0.0044155120849609375,
+      "merkle_proof_len": 4,
+      "fec_overhead_eta": 0.5367569828454508,
+      "fec_encode_s": 10.74816338600067,
+      "anchor_interval_s": 300.0
+    },
+    {
+      "config": "band_1",
+      "chunk_size": 370728,
+      "chunks": 29,
+      "integrity_time_ms_mean": 9.41193966676413,
+      "integrity_time_ms_sd": 0.8032561830296682,
+      "metadata_bytes": 586,
+      "metadata_pct": 0.005588531494140625,
+      "merkle_proof_len": 5,
+      "fec_overhead_eta": 0.5367389573521544,
+      "fec_encode_s": 11.420375335999779,
+      "anchor_interval_s": 170.9375
+    },
+    {
+      "config": "band_2",
+      "chunk_size": 131072,
+      "chunks": 80,
+      "integrity_time_ms_mean": 10.152526199999556,
+      "integrity_time_ms_sd": 0.7992093191587022,
+      "metadata_bytes": 943,
+      "metadata_pct": 0.008993148803710938,
+      "merkle_proof_len": 7,
+      "fec_overhead_eta": 0.5366866418516902,
+      "fec_encode_s": 11.250940274999266,
+      "anchor_interval_s": 78.75
+    },
+    {
+      "config": "band_3",
+      "chunk_size": 46341,
+      "chunks": 227,
+      "integrity_time_ms_mean": 8.835364733416402,
+      "integrity_time_ms_sd": 0.48258416466387977,
+      "metadata_bytes": 1746,
+      "metadata_pct": 0.016651153564453125,
+      "merkle_proof_len": 8,
+      "fec_overhead_eta": 0.5366690056458743,
+      "fec_encode_s": 11.072089719999894,
+      "anchor_interval_s": 23.4375
+    }
+  ],
+  "note_anchor": "per-object anchoring = 1000 writes/1000 objects; RAIL anchors the highest band seen since the last anchor at interval T(r_tilde)"
+}
