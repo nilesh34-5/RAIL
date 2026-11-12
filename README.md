@@ -115,3 +115,12 @@ traffic; the ML models are static analysis; and as the paper states, software
 enforcement rests on the correctness of the OS/kernel/inspection stack - an
 attacker who holds the sending gateway defeats the model. See the limitations in
 `docs/MODELS.md` and the paper's Conclusion.
+
+## License
+
+Released under the MIT License (see [`LICENSE`](LICENSE)). The MalConv2 model
+definitions in `railcds/inspection/vendor/malconv2/` come from
+FutureComputing4AI/MalConv2 and stay under the Apache License 2.0 (see the
+`LICENSE` file in that folder). The pretrained models fetched by
+`scripts/download_models.py` are not part of this repository and keep their own
+licences.
